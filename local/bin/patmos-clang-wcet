@@ -1,0 +1,66 @@
+#!/bin/bash
+#
+# functions to detect ruby, gem and rdoc
+#
+
+RUBY_MIN_VER=(1 9 0)
+
+function ruby_chk_ver {
+  local i=$1
+  local x=${2-0}
+  shift 2
+  local rest=$@
+
+  if [[ $x > ${RUBY_MIN_VER[$i]} ]]; then
+    true
+  elif [[ $x == ${RUBY_MIN_VER[$i]} ]]; then
+    ruby_chk_ver $(( $i + 1 )) $rest
+  else
+    false
+  fi
+}
+
+function detect_ruby {
+    local fail
+    RUBY=$(which ruby)
+    if [[ $? != 0 ]]
+    then
+	echo "ruby not found. Please install ruby (e.g., sudo aptitude install ruby)" >&2
+	exit 1
+    fi
+
+    RUBY_VERSION_STRING=$(ruby -e 'puts RUBY_VERSION')
+    RUBY_VER=(${RUBY_VERSION_STRING//./ })
+
+    if ! ruby_chk_ver 0 ${RUBY_VER[@]}
+    then
+        local ruby_min_ver_str=${RUBY_MIN_VER[*]}
+	echo "Cannot detect ruby >= ${ruby_min_ver_str// /.}. Falling back to unsupported ruby version $(${RUBY} -v)" >&2
+    fi
+}
+
+function detect_gem_command {
+    GEMs="gem"
+    for g in ${GEMs} ; do
+        if [ ! -z "`which ${g}  2>/dev/null`" ] ; then
+            GEM="$g"
+            break
+        fi
+    done
+    if [ -z "${GEM}" ] ; then
+        echo "gem not found. Please make sure there is a 'gem' command for managing ruby libraries" >&2
+    fi
+}
+detect_ruby
+detect_gem_command
+
+if [ -z "${GEM}" ] ; then
+  export GEM_PATH="/home/patmos/t-crest_original/misc/local/lib/platin/gems"
+else
+  CURRENT_GEM_PATH=$(${GEM} env gempath)
+  export GEM_PATH="/home/patmos/t-crest_original/misc/local/lib/platin/gems:${CURRENT_GEM_PATH}"
+fi
+
+LIBDIR=$(dirname ${0})/../lib/platin
+COMPILER_SCRIPT="${LIBDIR}"/ext/patmos-clang-wcet.rb
+exec ${RUBY} -I "${LIBDIR}" "${COMPILER_SCRIPT}" "${@}"

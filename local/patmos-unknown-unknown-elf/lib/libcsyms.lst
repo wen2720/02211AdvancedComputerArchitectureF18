@@ -1,0 +1,12 @@
+memcpy
+memmove
+memset
+setjmp
+memcmp
+memchr
+strlen
+strchr
+strncmp
+fwrite
+fputc
+abort

@@ -1,0 +1,25 @@
+current directory: /home/patmos/t-crest_original/misc/local/lib/platin/gems/gems/lpsolve-5.5.10.j/ext
+/usr/bin/ruby2.3 -r ./siteconf20180324-47704-rn3pnj.rb extconf.rb
+checking for main() in -lcolamd... yes
+checking for main() in -ldl... yes
+checking for main() in -lm... yes
+checking for main() in -llpsolve55_pic... yes
+checking for lpsolve/lp_lib.h... yes
+creating Makefile
+
+To see why this extension failed to compile, please check the mkmf.log which can be found here:
+
+  /home/patmos/t-crest_original/misc/local/lib/platin/gems/extensions/x86_64-linux/2.3.0/lpsolve-5.5.10.j/mkmf.log
+
+current directory: /home/patmos/t-crest_original/misc/local/lib/platin/gems/gems/lpsolve-5.5.10.j/ext
+make "DESTDIR=" clean
+
+current directory: /home/patmos/t-crest_original/misc/local/lib/platin/gems/gems/lpsolve-5.5.10.j/ext
+make "DESTDIR="
+compiling lpconsts.c
+compiling lpsolve.c
+linking shared-object lpsolve.so
+
+current directory: /home/patmos/t-crest_original/misc/local/lib/platin/gems/gems/lpsolve-5.5.10.j/ext
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 lpsolve.so ./.gem.20180324-47704-u75ab1

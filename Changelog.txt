@@ -1,0 +1,58 @@
+Patmos Toolchain Changelog
+==========================
+
+2014-03-05 LLVM 3.4 upgrade, new paasm implementation
+-----------------------------------------------------
+- Upgraded tool chain to LLVM 3.4
+- Only -m options listed in patmos-clang --help-hidden are passed on to patmos-llc, 
+  other options must be passed with -Xllc -m.
+- Anti-dependency breaker and breaking false dependencies between predicated instructions
+  has been temporarily disabled until the implementation will be fixed.
+- paasm uses a hand-written lexer and parser now, and features better error messages,
+  symbolic expressions, and supports the same opcode mnemonics as pasim uses for printing.
+
+2013-09-03 Libc and Simulator Features
+--------------------------------------
+- Dropped uart_flush and uart_fflush.
+- Added I-cache to simulator, collect memory usage statistics in simulator
+- padasm now supports ELF input
+- Added pacheck tool to statically check Patmos binaries for common encoding errors
+
+2013-05-23 ISA Revision
+-----------------------
+- Changed delay slot size for CALL and BRCF from 2 to 3 cycles
+
+2013-04-26 Assembler Bundle Syntax
+----------------------------------
+- Dropped the double-semicolon separator, using curly brackets for bundles now
+
+2013-04-16 Libc and Simulator Features
+--------------------------------------
+- Added --freq option to pasim to set the µs/clock tick rate.
+- Write the status of the LEDs to stdout when writing to the LED IO address.
+- Added uart_flush and uart_fflush to machine/uart.h in newlib. They send a flush
+  control command over the UART to flush the output of the simulator.
+- Added support for sleep, usleep, nanosleep for patmos-unknown-unknown-elf target.
+  The implementation uses the new µs simulator IO (i.e., they depend on the --freq pasim option)
+
+2013-04-15 ISA Revision
+-----------------------
+- using old encoding for xor, added xor ALUi format
+- call instructions must only have exactly two 32bit instructions in the delay slot
+- added $ss alias for $s5
+- using $s5 for stack memory spill pointer (was s6), using $s6 for stack top pointer
+- added sspill with immediate, as well as sens and sspill indirect
+- implemented support for IO-mapped cycle-counter and other IO-devices, dropped counter 
+  implementation using s7/s8
+
+2013-04-04 ISA Revision
+-----------------------
+- removed rsub, nop <nr>, bne, pnor from simulator, ISA and compiler
+- removed ALUu and all sext/zext and abs instructions from simulator, ISA and compiler
+
+2013-01-17 LLVM/Clang 3.2 update
+--------------------------------
+- -mfloat-abi=none and -mno-soft-float is no longer supported
+- -ccc-host-triple is no longer supported, use -target instead
+- Target triple is now 'patmos-unknown-unknown-elf' instead of 'patmos-unknown-elf'
+

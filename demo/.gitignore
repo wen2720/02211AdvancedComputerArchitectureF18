@@ -1,0 +1,15 @@
+hello/hello
+jumptable/jumptable
+wcet/test
+wcet/tmp
+*.s
+*.ll
+*.bc
+*.o
+*.i
+*.out
+*.pml
+*.ais
+*.apx
+*.log
+*.xml

@@ -1,0 +1,24 @@
+== Parser / Regexp Combinator for Ruby. 
+
+Easier and faster than treetop / rex+racc.
+
+It's ruby1.9 only.
+
+== License 
+
+As Ruby's
+
+== Install 
+
+The pure Ruby gem is fast enough (about 10+x faster than treetop generated code):
+
+    gem in rsec
+
+== Doc
+
+http://rsec.heroku.com
+
+== Code
+
+http://github.com/luikore/rsec/tree/master
+
