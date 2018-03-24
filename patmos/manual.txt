@@ -1,0 +1,50 @@
+1. patmos compiling c code
+patmos-clang file.c
+
+2. patmos simulator, executes executable
+pasim file.out
+
+3. complete build process with store app in boot rom and then download, make toos, just required once
+make BOOTAPP=bootable-bootloader APP=file tools comp gen synth config download
+
+  -BOOTAPP=bootable-bootloader
+  # Application to be stored in boot ROM
+
+  -APP=file
+  # elf to be downloaded to the boot ROM
+
+  tools
+  # build of all tools, including patmos software simulator
+
+  gen
+  # generate the verilog code
+
+  synth
+   synthesis for FPGA
+
+  comp
+  # compile a C program as loadable ELF binary
+
+  config
+  # configure the FPGA
+
+  download
+  # download an ELF file into the main memory to the patmos bootloader
+
+*. Build all tools
+1. Compile the C program of APP=file as loadable ELF binary.
+2. Store the elf binary to the boot rom
+3. Generate the verilog code
+4. Synthesis the verilog
+5. Download  elf into main memory to the Patmos bootloader
+
+4. bootable-file, prefix bootable- select right compiler setting for tiny program in the on-chip ROM
+make BOOTAPP=bootable-flie comp gen synth config
+
+difference between BOOTAPP=bootable-bootloader APP=file
+vs                 BOOTAPP=bootable-flex
+is the former uses boot ROM normal mode
+the latter uses tiny execution mode
+
+5. make APP=file comp config download
+After the FPGA configuration is stable, if only C program is modified then the command can be simplified.
